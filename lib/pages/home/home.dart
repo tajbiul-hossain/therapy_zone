@@ -4,6 +4,7 @@ import 'package:therapy_zone/models/post.dart';
 import 'package:therapy_zone/pages/home/chart.dart';
 import 'package:therapy_zone/pages/home/doctor.dart';
 import 'package:therapy_zone/pages/home/learn.dart';
+import 'package:therapy_zone/pages/home/newpost.dart';
 import 'package:therapy_zone/pages/home/quiz.dart';
 import 'package:therapy_zone/services/auth.dart';
 
@@ -270,7 +271,10 @@ class _HomeState extends State<Home> {
         child: FloatingActionButton(
           backgroundColor: Color.fromRGBO(240, 159, 156, 1),
           onPressed: () {
-            Navigator.pushNamed(context, '/newpost');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewPost()),
+            );
           },
           child: Icon(
             Icons.create_outlined,

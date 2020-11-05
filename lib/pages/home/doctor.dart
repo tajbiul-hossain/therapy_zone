@@ -8,7 +8,7 @@ class Doctor extends StatefulWidget {
 
 class _DoctorState extends State<Doctor> {
   var name = [
-    "Dr. Hanif Siddequi",
+    "Dr. Hanif Seddiqui",
     "Dr. Osiur Rahman",
     "Dr. Anwarul Azim",
     "Dr. Fairooz Azim",
@@ -143,7 +143,7 @@ showDialogFunc(context, img, name, info, mobile, email) {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromRGBO(39, 15, 54, 1),
+                color: Color.fromRGBO(99, 43, 108, 1),
               ),
               padding: EdgeInsets.all(15.0),
               width: MediaQuery.of(context).size.width * 0.7,
@@ -160,13 +160,13 @@ showDialogFunc(context, img, name, info, mobile, email) {
                     name,
                     style: TextStyle(
                         fontSize: 25.0,
-                        color: Colors.grey,
+                        color: Colors.white60,
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10.0),
                   Text(
                     info,
-                    style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
+                    style: TextStyle(fontSize: 15.0, color: Colors.white60),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10.0),

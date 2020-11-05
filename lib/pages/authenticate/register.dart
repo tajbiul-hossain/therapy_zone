@@ -64,7 +64,7 @@ class _RegisterState extends State<Register> {
                             color: Colors.white),
                         children: <TextSpan>[
                       TextSpan(
-                          text: 'Therapy Zone',
+                          text: 'Self Help',
                           style: TextStyle(
                               fontSize: 30.0,
                               fontWeight: FontWeight.bold,
