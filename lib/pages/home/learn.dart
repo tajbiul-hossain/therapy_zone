@@ -1,8 +1,9 @@
 import 'package:therapy_zone/models/disorder.dart';
+import 'package:therapy_zone/pages/bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:therapy_zone/pages/home/disorderInfo.dart';
 import 'package:flutter/material.dart';
 
-class Learn extends StatefulWidget {
+class Learn extends StatefulWidget with NavigationStates {
   @override
   _LearnState createState() => _LearnState();
 }
@@ -51,14 +52,13 @@ class _LearnState extends State<Learn> {
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(99, 43, 108, 1),
         title: Center(
-            child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 55, 0),
-          child: Text(
-            'Learn',
-            style: TextStyle(
+            child: Text(
+          'LEARN',
+          style: TextStyle(
               color: Color.fromRGBO(252, 195, 163, 1),
-            ),
-          ),
+              letterSpacing: 2,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
         )),
       ),
       body: Container(

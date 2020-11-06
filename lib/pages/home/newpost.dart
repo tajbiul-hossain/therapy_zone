@@ -6,167 +6,112 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
-  //CODE FOR FEELINGS SLIDER
-  double _currentSliderValue = 60;
-  String emoji = "\u{1F610}";
-  //function to change emoji on slider
-  void setEmoji(double value) {
-    if (value == 0) {
-      emoji = "\u{1F616}";
-    }
-    if (value == 20) {
-      emoji = "\u{1F62A}";
-    }
-    if (value == 40) {
-      emoji = "\u{1F641}";
-    }
-    if (value == 60) {
-      emoji = "\u{1F610}";
-    }
-    if (value == 80) {
-      emoji = "\u{1F600}";
-    }
-    if (value == 100) {
-      emoji = "\u{1F604}";
-    }
-  }
+  final _formKey = GlobalKey<FormState>();
 
-  // CONTROL TEXT FIELD
-  final titleController = TextEditingController();
-  final contentController = TextEditingController();
+  String _title;
+  String _desc;
+  String _mood;
+  double _value = 0;
 
-  void makeNewPost(String title, String content, String date) {
-    String _title = title;
-    String _content = content;
-    String _date = date;
-    Navigator.pop(
-        context, {'title': _title, 'content': _content, 'date': _date});
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    titleController.dispose();
-    contentController.dispose();
-    super.dispose();
+  String _emojify(x) {
+    switch (x.floor()) {
+      case 0:
+        return '\u{1F621}';
+      case 1:
+        return '\u{1F624}';
+      case 2:
+        return '\u{1F616}';
+      case 3:
+        return '\u{1F622}';
+      case 4:
+        return '\u{1F614}';
+      case 5:
+        return '\u{1F610}';
+      case 6:
+        return '\u{1F642}';
+      case 7:
+        return '\u{1F604}';
+      case 8:
+        return '\u{1F607}';
+      case 9:
+        return '\u{1F970}';
+      case 10:
+        return '\u{1F973}';
+    }
+    return '\u{1F621}';
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(99, 43, 108, 1),
-        title: Center(
-            child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 55, 0),
-          child: Text(
-            'Add new Journal entry',
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Text(
+            'Share With Us',
             style: TextStyle(
-              color: Color.fromRGBO(252, 195, 163, 1),
+                color: Color.fromRGBO(252, 195, 163, 1),
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20.0),
+          TextFormField(
+            style: TextStyle(color: Colors.white60, fontSize: 20.0),
+            decoration: InputDecoration(
+              labelText: 'Your mood right now',
+              labelStyle: new TextStyle(color: Colors.white60, fontSize: 15.0),
+              prefixIcon: Icon(Icons.mood, color: Colors.white60),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white60),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white60),
+              ),
+            ),
+            validator: (val) =>
+                val.isEmpty ? 'Please enter current mood' : null,
+            onChanged: (val) => setState(() => _title = val),
+          ),
+          SizedBox(height: 20.0),
+          TextFormField(
+            style: TextStyle(color: Colors.white60, fontSize: 20.0),
+            decoration: InputDecoration(
+              labelText: 'Tell us how are you feeling',
+              labelStyle: new TextStyle(color: Colors.white60, fontSize: 15.0),
+              prefixIcon: Icon(Icons.description, color: Colors.white60),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white60),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white60),
+              ),
+            ),
+            validator: (val) =>
+                val.isEmpty ? 'Please tell us your feeling?' : null,
+            onChanged: (val) => setState(() => _desc = val),
+          ),
+          SizedBox(height: 20.0),
+          Slider(
+            value: _value,
+            activeColor: Color.fromRGBO(252, 195, 163, 1),
+            max: 10,
+            min: 0,
+            divisions: 10,
+            onChanged: (val) {
+              setState(() => _value = val);
+              _mood = _emojify(_value);
+            },
+          ),
+          Text(_emojify(_value), style: TextStyle(fontSize: 30)),
+          SizedBox(height: 20.0),
+          FloatingActionButton(
+            onPressed: () async {},
+            backgroundColor: Color.fromRGBO(240, 159, 156, 1),
+            child: Icon(
+              Icons.send_outlined,
+              color: Colors.deepPurple,
             ),
           ),
-        )),
-      ),
-      body: Container(
-        color: Color.fromRGBO(39, 15, 54, 1),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: titleController,
-                style: TextStyle(
-                  color: Color.fromRGBO(240, 159, 156, 1),
-                ),
-                decoration: InputDecoration(
-                  fillColor: Color.fromRGBO(99, 43, 108, .1),
-                  filled: true,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(252, 195, 163, 1),
-                    ),
-                  ),
-                  border: OutlineInputBorder(),
-                  hintText: 'Title',
-                  hintStyle: TextStyle(
-                    fontSize: 20,
-                    color: Color.fromRGBO(252, 195, 163, 1),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                controller: contentController,
-                style: TextStyle(
-                  color: Color.fromRGBO(252, 195, 163, 1),
-                ),
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(252, 195, 163, 1),
-                    ),
-                  ),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                  border: OutlineInputBorder(),
-                  hintText: "What's on your mind?",
-                  hintStyle: TextStyle(
-                    fontSize: 20,
-                    color: Color.fromRGBO(252, 195, 163, 1),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                'How Are you feeling right now?',
-                style: TextStyle(
-                  color: Color.fromRGBO(252, 195, 163, 1),
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                '$emoji',
-                style: TextStyle(
-                  fontSize: 32.0,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Slider(
-                //active and inactive color ??
-                value: _currentSliderValue,
-                min: 0,
-                max: 100,
-                divisions: 5,
-                onChanged: (double value) {
-                  setState(() {
-                    _currentSliderValue = value;
-                    setEmoji(value);
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromRGBO(240, 159, 156, 1),
-        onPressed: () {
-          makeNewPost(titleController.text, contentController.text, '22-22-22');
-        },
-        child: Icon(
-          Icons.send_outlined,
-          color: Colors.deepPurple,
-        ),
+        ],
       ),
     );
   }

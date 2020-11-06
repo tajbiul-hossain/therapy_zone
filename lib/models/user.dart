@@ -3,3 +3,9 @@ class User {
 
   User({this.uid});
 }
+
+class UserData {
+  final String uid;
+
+  UserData({this.uid});
+}

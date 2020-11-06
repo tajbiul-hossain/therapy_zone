@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:therapy_zone/pages/bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Doctor extends StatefulWidget {
+class Doctor extends StatefulWidget with NavigationStates {
   @override
   _DoctorState createState() => _DoctorState();
 }
@@ -61,10 +62,12 @@ class _DoctorState extends State<Doctor> {
         backgroundColor: Color.fromRGBO(99, 43, 108, 1),
         title: Center(
             child: Text(
-          'Make an appointment',
+          'MAKE APPOINMENT',
           style: TextStyle(
-            color: Color.fromRGBO(252, 195, 163, 1),
-          ),
+              color: Color.fromRGBO(252, 195, 163, 1),
+              letterSpacing: 2,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
         )),
       ),
       body: Container(
