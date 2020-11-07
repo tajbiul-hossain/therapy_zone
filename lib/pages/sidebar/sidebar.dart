@@ -85,7 +85,7 @@ class _SideBarState extends State<SideBar>
                   child: Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 50,
+                        height: 40,
                       ),
                       ListTile(
                         title: Text(

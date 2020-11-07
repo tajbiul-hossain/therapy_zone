@@ -1,15 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:therapy_zone/models/post.dart';
 import 'package:therapy_zone/models/user.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final navigatorKey = GlobalKey<NavigatorState>();
-
+  final db = Firestore.instance;
   //create user object based on firebase user
 
   User _userFromFirebaseUser(FirebaseUser user) {
     return user != null ? User(uid: user.uid) : null;
+  }
+
+  // GET UID
+  Future<String> getCurrentUID() async {
+    return (await _auth.currentUser()).uid;
   }
 
   //auth change user stream
@@ -54,5 +61,16 @@ class AuthService {
     } catch (e) {
       return e.message;
     }
+  }
+
+  Future postUpdate(
+      String title, String desc, String mood, DateTime date) async {
+    final uid = await getCurrentUID();
+    Post post = Post(title, date, desc, mood);
+    await db
+        .collection("userData")
+        .document(uid)
+        .collection("posts")
+        .add(post.toJson());
   }
 }

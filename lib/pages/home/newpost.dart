@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:therapy_zone/services/auth.dart';
 
 class NewPost extends StatefulWidget {
   @override
@@ -6,11 +7,13 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   String _title;
   String _desc;
   String _mood;
+  DateTime _date;
   double _value = 0;
 
   String _emojify(x) {
@@ -41,6 +44,11 @@ class _NewPostState extends State<NewPost> {
     return '\u{1F621}';
   }
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -55,41 +63,41 @@ class _NewPostState extends State<NewPost> {
           ),
           SizedBox(height: 20.0),
           TextFormField(
-            style: TextStyle(color: Colors.white60, fontSize: 20.0),
-            decoration: InputDecoration(
-              labelText: 'Your mood right now',
-              labelStyle: new TextStyle(color: Colors.white60, fontSize: 15.0),
-              prefixIcon: Icon(Icons.mood, color: Colors.white60),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white60),
+              style: TextStyle(color: Colors.white60, fontSize: 20.0),
+              decoration: InputDecoration(
+                labelText: 'Your mood right now',
+                labelStyle:
+                    new TextStyle(color: Colors.white60, fontSize: 15.0),
+                prefixIcon: Icon(Icons.mood, color: Colors.white60),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white60),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white60),
+                ),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white60),
-              ),
-            ),
-            validator: (val) =>
-                val.isEmpty ? 'Please enter current mood' : null,
-            onChanged: (val) => setState(() => _title = val),
-          ),
+              validator: (val) =>
+                  val.isEmpty ? 'Please enter current mood' : null,
+              onChanged: (val) => _title = val),
           SizedBox(height: 20.0),
           TextFormField(
-            style: TextStyle(color: Colors.white60, fontSize: 20.0),
-            decoration: InputDecoration(
-              labelText: 'Tell us how are you feeling',
-              labelStyle: new TextStyle(color: Colors.white60, fontSize: 15.0),
-              prefixIcon: Icon(Icons.description, color: Colors.white60),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white60),
+              style: TextStyle(color: Colors.white60, fontSize: 20.0),
+              decoration: InputDecoration(
+                labelText: 'Tell us how are you feeling',
+                labelStyle:
+                    new TextStyle(color: Colors.white60, fontSize: 15.0),
+                prefixIcon: Icon(Icons.description, color: Colors.white60),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white60),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white60),
+                ),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white60),
-              ),
-            ),
-            validator: (val) =>
-                val.isEmpty ? 'Please tell us your feeling?' : null,
-            onChanged: (val) => setState(() => _desc = val),
-          ),
-          SizedBox(height: 20.0),
+              validator: (val) =>
+                  val.isEmpty ? 'Please tell us your feeling?' : null,
+              onChanged: (val) => _desc = val),
+          SizedBox(height: 5.0),
           Slider(
             value: _value,
             activeColor: Color.fromRGBO(252, 195, 163, 1),
@@ -99,12 +107,18 @@ class _NewPostState extends State<NewPost> {
             onChanged: (val) {
               setState(() => _value = val);
               _mood = _emojify(_value);
+              _date = DateTime.now();
             },
           ),
           Text(_emojify(_value), style: TextStyle(fontSize: 30)),
-          SizedBox(height: 20.0),
+          SizedBox(height: 5.0),
           FloatingActionButton(
-            onPressed: () async {},
+            onPressed: () async {
+              if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
+                _auth.postUpdate(_title, _desc, _mood, _date);
+              }
+            },
             backgroundColor: Color.fromRGBO(240, 159, 156, 1),
             child: Icon(
               Icons.send_outlined,

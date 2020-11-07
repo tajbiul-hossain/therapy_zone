@@ -181,6 +181,8 @@ class _RegisterState extends State<Register> {
                               RaisedButton(
                                 onPressed: () async {
                                   if (_formKey.currentState.validate()) {
+                                    final form = _formKey.currentState;
+                                    form.save();
                                     setState(() => loading = true);
                                     dynamic result = await _auth
                                         .registerWithEmailAndPassword(
