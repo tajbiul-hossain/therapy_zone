@@ -58,10 +58,11 @@ class _NewPostState extends State<NewPost> {
             'Share With Us',
             style: TextStyle(
                 color: Color.fromRGBO(252, 195, 163, 1),
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold),
+                fontSize: 22.0,
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.w900),
           ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 10.0),
           TextFormField(
               style: TextStyle(color: Colors.white60, fontSize: 20.0),
               decoration: InputDecoration(
@@ -79,7 +80,7 @@ class _NewPostState extends State<NewPost> {
               validator: (val) =>
                   val.isEmpty ? 'Please enter current mood' : null,
               onChanged: (val) => _title = val),
-          SizedBox(height: 20.0),
+          SizedBox(height: 5.0),
           TextFormField(
               style: TextStyle(color: Colors.white60, fontSize: 20.0),
               decoration: InputDecoration(
@@ -97,7 +98,7 @@ class _NewPostState extends State<NewPost> {
               validator: (val) =>
                   val.isEmpty ? 'Please tell us your feeling?' : null,
               onChanged: (val) => _desc = val),
-          SizedBox(height: 5.0),
+          SizedBox(height: 10.0),
           Slider(
             value: _value,
             activeColor: Color.fromRGBO(252, 195, 163, 1),
@@ -111,12 +112,13 @@ class _NewPostState extends State<NewPost> {
             },
           ),
           Text(_emojify(_value), style: TextStyle(fontSize: 30)),
-          SizedBox(height: 5.0),
+          SizedBox(height: 15.0),
           FloatingActionButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 _auth.postUpdate(_title, _desc, _mood, _date);
+                Navigator.of(context).pop();
               }
             },
             backgroundColor: Color.fromRGBO(240, 159, 156, 1),

@@ -8,10 +8,10 @@ class Loading extends StatelessWidget {
     return Scaffold(
       body: SizedBox.expand(
         child: Container(
-          color: Color.fromRGBO(39, 15, 54, 1),
-          child: SpinKitChasingDots(
-            color: Color.fromRGBO(252, 195, 163, 1),
-            size: 40,
+          color: Colors.lightBlueAccent.withOpacity(0.4),
+          child: SpinKitFadingCube(
+            color: Color.fromRGBO(51, 129, 239,1.0),
+            size: 60,
           ),
         ),
       ),

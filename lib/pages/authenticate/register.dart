@@ -36,45 +36,46 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Color.fromRGBO(39, 15, 54, 1),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                padding: const EdgeInsets.all(0.0),
                 child: Container(
+                  height: size.height,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/1.png"),
+                      image: AssetImage("assets/grad.jpg"),
                       fit: BoxFit.cover,
                     ),
                   ),
                   child: Column(
                     children: [
-                      Container(
-                        height: 290,
-                        child: Image(
-                          image: AssetImage("assets/2.png"),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      RichText(
-                          text: TextSpan(
-                              text: 'Welcome to ',
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              children: <TextSpan>[
-                            TextSpan(
-                                text: 'Self Help',
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(5.0, 130.0, 5.0, 0.0),
+                        child: RichText(
+                            text: TextSpan(
+                                text: 'Welcome to ',
                                 style: TextStyle(
-                                    fontSize: 30.0,
+                                    fontSize: 28.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.lightBlueAccent[700]))
-                          ])),
-                      SizedBox(height: 5.0),
+                                    color: Colors.white,
+                                    letterSpacing: 1.0),
+                                children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Self Help',
+                                  style: TextStyle(
+                                      fontSize: 32.0,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.0,
+                                      color: Colors.lightBlue[900]))
+                            ])),
+                      ),
+                      SizedBox(height: 15.0),
                       Text(
                         'Find Your Mental Peace',
                         style: TextStyle(
@@ -87,92 +88,79 @@ class _RegisterState extends State<Register> {
                           key: _formKey,
                           child: Column(
                             children: [
+                              SizedBox(height: 30.0),
                               TextFormField(
-                                  style: TextStyle(color: Colors.white60),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18.0),
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter Name' : null,
                                   decoration: InputDecoration(
-                                    labelText: 'Name',
-                                    labelStyle:
-                                        new TextStyle(color: Colors.white60),
-                                    prefixIcon: Icon(Icons.person,
-                                        color: Colors.white60),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                  ),
+                                      labelText: 'Name',
+                                      labelStyle:
+                                          new TextStyle(color: Colors.white60),
+                                      prefixIcon: Icon(Icons.person,
+                                          color: Colors.white60),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white60),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white60),
+                                      ),
+                                      errorStyle: TextStyle(
+                                          fontSize: 18, letterSpacing: 1.5)),
                                   onChanged: (val) {
                                     setState(() => name = val);
                                   }),
+                              SizedBox(height: 10.0),
                               TextFormField(
-                                  style: TextStyle(color: Colors.white60),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18.0),
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter Email' : null,
                                   decoration: InputDecoration(
-                                    labelText: 'Email',
-                                    labelStyle:
-                                        new TextStyle(color: Colors.white60),
-                                    prefixIcon: Icon(Icons.email,
-                                        color: Colors.white60),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                  ),
+                                      labelText: 'Email',
+                                      labelStyle:
+                                          new TextStyle(color: Colors.white60),
+                                      prefixIcon: Icon(Icons.email,
+                                          color: Colors.white60),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white60),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white60),
+                                      ),
+                                      errorStyle: TextStyle(
+                                          fontSize: 18, letterSpacing: 1.5)),
                                   onChanged: (val) {
                                     setState(() => email = val);
                                   }),
+                              SizedBox(height: 10.0),
                               TextFormField(
-                                  style: TextStyle(color: Colors.white60),
-                                  validator: (val) =>
-                                      val.isEmpty ? 'Enter Phone Number' : null,
-                                  decoration: InputDecoration(
-                                    labelText: 'Phone',
-                                    labelStyle:
-                                        new TextStyle(color: Colors.white60),
-                                    prefixIcon: Icon(Icons.phone,
-                                        color: Colors.white60),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                  ),
-                                  onChanged: (val) {
-                                    setState(() => mobile = val);
-                                  }),
-                              TextFormField(
-                                  style: TextStyle(color: Colors.white60),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18.0),
                                   validator: (val) => val.length < 6
                                       ? 'Enter Minimum 6 Characters'
                                       : null,
                                   decoration: InputDecoration(
-                                    labelText: 'Password',
-                                    labelStyle:
-                                        new TextStyle(color: Colors.white60),
-                                    prefixIcon:
-                                        Icon(Icons.lock, color: Colors.white60),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white60),
-                                    ),
-                                  ),
+                                      labelText: 'Password',
+                                      labelStyle:
+                                          new TextStyle(color: Colors.white60),
+                                      prefixIcon: Icon(Icons.lock,
+                                          color: Colors.white60),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white60),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white60),
+                                      ),
+                                      errorStyle: TextStyle(
+                                          fontSize: 18, letterSpacing: 1.5)),
                                   obscureText: true,
                                   onChanged: (val) {
                                     setState(() => password = val);
@@ -192,30 +180,30 @@ class _RegisterState extends State<Register> {
                                   }
                                 },
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 70),
+                                    vertical: 12, horizontal: 70),
                                 child: Text(
                                   'Create Profile',
                                   style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
-                                      letterSpacing: 1.0),
+                                      letterSpacing: 2),
                                 ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                color: Colors.lightBlueAccent[700],
+                                color: Colors.white30,
                               )
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 5.0),
+                      SizedBox(height: 15.0),
                       GestureDetector(
                           onTap: widget.toggleView,
                           child: Text(
-                            "already have an account?",
-                            style: TextStyle(color: Colors.white),
+                            "Already have an account?",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
                           ))
                     ],
                   ),

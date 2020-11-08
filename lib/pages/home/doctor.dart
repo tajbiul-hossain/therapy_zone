@@ -59,19 +59,22 @@ class _DoctorState extends State<Doctor> {
     double width = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(99, 43, 108, 1),
-        title: Center(
-            child: Text(
-          'MAKE APPOINMENT',
-          style: TextStyle(
-              color: Color.fromRGBO(252, 195, 163, 1),
-              letterSpacing: 2,
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-        )),
+        backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 15.0),
+          child: Center(
+              child: Text(
+            'MAKE AN APPOINMENT',
+            style: TextStyle(
+                color: Color.fromRGBO(252, 195, 163, 1),
+                letterSpacing: 2,
+                fontSize: 22,
+                fontWeight: FontWeight.w900),
+          )),
+        ),
       ),
       body: Container(
-        color: Color.fromRGBO(39, 15, 54, 1),
+        color: Colors.lightBlueAccent.withOpacity(0.5),
         child: ListView.builder(
             itemCount: name.length,
             itemBuilder: (context, index) {
@@ -81,7 +84,7 @@ class _DoctorState extends State<Doctor> {
                       contact[index], email[index]);
                 },
                 child: Card(
-                    color: Color.fromRGBO(39, 15, 54, 1),
+                    color: Color.fromRGBO(47, 94, 161, 0.7),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5.0),
                       child: Row(
@@ -100,7 +103,7 @@ class _DoctorState extends State<Doctor> {
                                   name[index],
                                   style: TextStyle(
                                     fontSize: 20.0,
-                                    color: Colors.grey,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -111,7 +114,7 @@ class _DoctorState extends State<Doctor> {
                                     info[index],
                                     style: TextStyle(
                                       fontSize: 15.0,
-                                      color: Colors.grey[500],
+                                      color: Colors.grey[300],
                                     ),
                                   ),
                                 )
@@ -146,7 +149,7 @@ showDialogFunc(context, img, name, info, mobile, email) {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromRGBO(99, 43, 108, 1),
+                color: Color.fromRGBO(47, 94, 161, 0.7),
               ),
               padding: EdgeInsets.all(15.0),
               width: MediaQuery.of(context).size.width * 0.7,

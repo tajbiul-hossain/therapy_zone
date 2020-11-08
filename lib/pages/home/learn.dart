@@ -50,26 +50,29 @@ class _LearnState extends State<Learn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(99, 43, 108, 1),
-        title: Center(
-            child: Text(
-          'LEARN',
-          style: TextStyle(
-              color: Color.fromRGBO(252, 195, 163, 1),
-              letterSpacing: 2,
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-        )),
+        backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0),
+          child: Center(
+              child: Text(
+            'LEARN',
+            style: TextStyle(
+                color: Color.fromRGBO(252, 195, 163, 1),
+                letterSpacing: 2,
+                fontSize: 22,
+                fontWeight: FontWeight.w900),
+          )),
+        ),
       ),
       body: Container(
-        color: Color.fromRGBO(39, 15, 54, 1),
+        color: Colors.lightBlueAccent.withOpacity(0.5),
         child: ListView.builder(
           itemCount: disorders.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               child: Card(
-                color: Color.fromRGBO(99, 43, 108, 5),
+                color: Color.fromRGBO(47, 94, 161, 1),
                 child: ListTile(
                   onTap: () {},
                   title: Column(
@@ -90,8 +93,7 @@ class _LearnState extends State<Learn> {
                         padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
                         child: Text(
                           disorders[index].description,
-                          style:
-                              TextStyle(fontSize: 20, color: Colors.red[100]),
+                          style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                       ),
                       Row(

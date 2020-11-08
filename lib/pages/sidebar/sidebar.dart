@@ -1,12 +1,11 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:therapy_zone/services/auth.dart';
-import '../bloc.navigation_bloc/navigation_bloc.dart';
-import '../sidebar/menu_item.dart';
+import 'package:therapy_zone/pages/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:therapy_zone/pages/sidebar/menu_item.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -81,7 +80,7 @@ class _SideBarState extends State<SideBar>
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  color: const Color.fromRGBO(39, 15, 54, 1),
+                  color: const Color.fromRGBO(255, 255, 255, 1),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -91,19 +90,19 @@ class _SideBarState extends State<SideBar>
                         title: Text(
                           "$name",
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Color.fromRGBO(47, 94, 161, 0.7),
                               fontSize: 30,
                               fontWeight: FontWeight.w800),
                         ),
                         subtitle: Text(
                           "$email",
                           style: TextStyle(
-                            color: Colors.white70,
+                            color: Color.fromRGBO(47, 94, 161, 0.7),
                             fontSize: 18,
                           ),
                         ),
                         leading: CircleAvatar(
-                          backgroundColor: Color.fromRGBO(39, 15, 54, 1),
+                          backgroundColor: Colors.white,
                           backgroundImage: AssetImage("assets/profile.png"),
                           radius: 30,
                         ),
@@ -111,14 +110,18 @@ class _SideBarState extends State<SideBar>
                       Divider(
                         height: 50,
                         thickness: 0.5,
-                        color: Colors.white.withOpacity(0.3),
+                        color: Colors.grey[800],
                         indent: 32,
                         endIndent: 32,
                       ),
                       MenuItem(
                         icon: Icons.home,
                         title: "Home",
-                        onTap: () {},
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context)
+                              .add(NavigationEvents.HomeClickedEvent);
+                        },
                       ),
                       MenuItem(
                         icon: Icons.mood,
@@ -126,7 +129,7 @@ class _SideBarState extends State<SideBar>
                         onTap: () {
                           onIconPressed();
                           BlocProvider.of<NavigationBloc>(context)
-                              .add(NavigationEvents.HomeClickedEvent);
+                              .add(NavigationEvents.JournalClickedEvent);
                         },
                       ),
                       MenuItem(
@@ -168,7 +171,7 @@ class _SideBarState extends State<SideBar>
                       Divider(
                         height: 40,
                         thickness: 0.5,
-                        color: Colors.white.withOpacity(0.3),
+                        color: Colors.grey[800],
                         indent: 32,
                         endIndent: 32,
                       ),
@@ -203,12 +206,12 @@ class _SideBarState extends State<SideBar>
                     child: Container(
                       width: 35,
                       height: 110,
-                      color: Color.fromRGBO(39, 15, 54, 1),
+                      color: Color.fromRGBO(255, 255, 255, 1),
                       alignment: Alignment.centerLeft,
                       child: AnimatedIcon(
                         progress: _animationController.view,
                         icon: AnimatedIcons.menu_close,
-                        color: Colors.white70,
+                        color: Color.fromRGBO(47, 94, 161, 1),
                         size: 25,
                       ),
                     ),
@@ -227,7 +230,7 @@ class CustomMenuClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Paint paint = Paint();
-    paint.color = Colors.white;
+    paint.color = Color.fromRGBO(47, 94, 161, 1);
 
     final width = size.width;
     final height = size.height;

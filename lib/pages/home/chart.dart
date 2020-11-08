@@ -12,19 +12,22 @@ class _ChartState extends State<Chart> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(99, 43, 108, 1),
-          title: Center(
-              child: Text(
-            'STATISTICS',
-            style: TextStyle(
-                color: Color.fromRGBO(252, 195, 163, 1),
-                letterSpacing: 2,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          )),
+          backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
+          title: Padding(
+            padding: const EdgeInsets.only(right: 50.0),
+            child: Center(
+                child: Text(
+              'STATISTICS',
+              style: TextStyle(
+                  color: Color.fromRGBO(252, 195, 163, 1),
+                  letterSpacing: 2,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900),
+            )),
+          ),
         ),
         body: Container(
-          color: Color.fromRGBO(39, 15, 54, 1),
+          color: Colors.indigo[600],
           child: PieChart(
             dataMap: {
               "\u{1F616}": 5,

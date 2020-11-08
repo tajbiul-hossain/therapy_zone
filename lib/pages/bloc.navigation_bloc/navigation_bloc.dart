@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:therapy_zone/pages/home/About.dart';
+import 'package:therapy_zone/pages/home/home_page.dart';
 import '../home/journal.dart';
 import '../home/learn.dart';
 import '../home/quiz.dart';
@@ -8,6 +9,7 @@ import '../home/doctor.dart';
 
 enum NavigationEvents {
   HomeClickedEvent,
+  JournalClickedEvent,
   LearnClickedEvent,
   QuizClickedEvent,
   ChartClickedEvent,
@@ -19,12 +21,15 @@ abstract class NavigationStates {}
 
 class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   @override
-  NavigationStates get initialState => Journal();
+  NavigationStates get initialState => Home();
 
   @override
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
     switch (event) {
       case NavigationEvents.HomeClickedEvent:
+        yield Home();
+        break;
+      case NavigationEvents.JournalClickedEvent:
         yield Journal();
         break;
       case NavigationEvents.LearnClickedEvent:

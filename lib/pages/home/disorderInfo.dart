@@ -17,7 +17,7 @@ class _DisorderInfoState extends State<DisorderInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(99, 43, 108, 1),
+        backgroundColor: Color.fromRGBO(51, 129, 239,0.8),
         title: Center(
             child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 55, 0),

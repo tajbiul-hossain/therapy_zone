@@ -39,19 +39,22 @@ class _AboutState extends State<About> {
     double width = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(99, 43, 108, 1),
-        title: Center(
-            child: Text(
-          'OUR TEAM',
-          style: TextStyle(
-              color: Color.fromRGBO(252, 195, 163, 1),
-              letterSpacing: 2,
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-        )),
+        backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Center(
+              child: Text(
+            'OUR TEAM',
+            style: TextStyle(
+                color: Color.fromRGBO(252, 195, 163, 1),
+                letterSpacing: 2,
+                fontSize: 22,
+                fontWeight: FontWeight.w900),
+          )),
+        ),
       ),
       body: Container(
-        color: Color.fromRGBO(39, 15, 54, 1),
+        color: Colors.lightBlueAccent.withOpacity(0.3),
         child: ListView.builder(
             itemCount: name.length,
             itemBuilder: (context, index) {
@@ -61,7 +64,7 @@ class _AboutState extends State<About> {
                       mobile[index], email[index]);
                 },
                 child: Card(
-                    color: Color.fromRGBO(39, 15, 54, 1),
+                    color: Color.fromRGBO(47, 94, 161, 0.5),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0, top: 20.0),
                       child: Row(
@@ -80,7 +83,7 @@ class _AboutState extends State<About> {
                                   name[index],
                                   style: TextStyle(
                                     fontSize: 20.0,
-                                    color: Colors.grey,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -91,7 +94,7 @@ class _AboutState extends State<About> {
                                     id[index],
                                     style: TextStyle(
                                       fontSize: 15.0,
-                                      color: Colors.grey[500],
+                                      color: Colors.grey[300],
                                     ),
                                   ),
                                 )
@@ -126,7 +129,7 @@ showDialogFunc(context, img, name, id, mobile, email) {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromRGBO(99, 43, 108, 1),
+                color: Color.fromRGBO(47, 94, 161, 0.8),
               ),
               padding: EdgeInsets.all(15.0),
               width: MediaQuery.of(context).size.width * 0.7,
