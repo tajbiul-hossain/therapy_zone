@@ -60,7 +60,7 @@ class _JournalState extends State<Journal> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 155.0, 0.0, 0.0),
+            padding: EdgeInsets.fromLTRB(0.0, 205.0, 0.0, 0.0),
             child: Text(
                 '“Journaling is like whispering to one’s self and listening at the same time.” _Mina Murray',
                 textAlign: TextAlign.center,

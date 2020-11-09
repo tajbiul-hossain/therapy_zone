@@ -12,36 +12,29 @@ class _NewPostState extends State<NewPost> {
 
   String _title;
   String _desc;
-  String _mood;
   DateTime _date;
-  double _value = 0;
+  double _currentSliderValue = 60;
 
-  String _emojify(x) {
-    switch (x.floor()) {
-      case 0:
-        return '\u{1F621}';
-      case 1:
-        return '\u{1F624}';
-      case 2:
-        return '\u{1F616}';
-      case 3:
-        return '\u{1F622}';
-      case 4:
-        return '\u{1F614}';
-      case 5:
-        return '\u{1F610}';
-      case 6:
-        return '\u{1F642}';
-      case 7:
-        return '\u{1F604}';
-      case 8:
-        return '\u{1F607}';
-      case 9:
-        return '\u{1F970}';
-      case 10:
-        return '\u{1F973}';
+  String emoji = "\u{1F610}";
+  void setEmoji(double value) {
+    if (value == 0) {
+      emoji = "\u{1F616}";
     }
-    return '\u{1F621}';
+    if (value == 20) {
+      emoji = "\u{1F62A}";
+    }
+    if (value == 40) {
+      emoji = "\u{1F641}";
+    }
+    if (value == 60) {
+      emoji = "\u{1F610}";
+    }
+    if (value == 80) {
+      emoji = "\u{1F600}";
+    }
+    if (value == 100) {
+      emoji = "\u{1F604}";
+    }
   }
 
   @override
@@ -98,26 +91,31 @@ class _NewPostState extends State<NewPost> {
               validator: (val) =>
                   val.isEmpty ? 'Please tell us your feeling?' : null,
               onChanged: (val) => _desc = val),
-          SizedBox(height: 10.0),
+          SizedBox(height: 5.0),
           Slider(
-            value: _value,
-            activeColor: Color.fromRGBO(252, 195, 163, 1),
-            max: 10,
+            //active and inactive color ??
+            value: _currentSliderValue,
             min: 0,
-            divisions: 10,
-            onChanged: (val) {
-              setState(() => _value = val);
-              _mood = _emojify(_value);
-              _date = DateTime.now();
+            max: 100,
+            divisions: 5,
+            onChanged: (double value) {
+              setState(() {
+                _currentSliderValue = value ?? _currentSliderValue;
+                setEmoji(_currentSliderValue);
+                _date = DateTime.now();
+              });
             },
           ),
-          Text(_emojify(_value), style: TextStyle(fontSize: 30)),
+          SizedBox(height: 10.0),
+          Text(emoji, style: TextStyle(fontSize: 30)),
           SizedBox(height: 15.0),
           FloatingActionButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                _auth.postUpdate(_title, _desc, _mood, _date);
+                _date = DateTime.now();
+                _auth.postUpdate(_title, _desc, emoji, _date);
+                _auth.updateCounter(emoji);
                 Navigator.of(context).pop();
               }
             },

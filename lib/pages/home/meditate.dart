@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:therapy_zone/pages/home/home_page.dart';
 
 class Meditate extends StatefulWidget {
   @override
@@ -10,16 +9,14 @@ class Meditate extends StatefulWidget {
 class _MeditateState extends State<Meditate> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    var Textstyle = TextStyle(
-        fontFamily: "FiraSans", fontSize: 18.0, color: Colors.grey[700]);
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(50.0),
             child: Container(
-              height: size.height * .5,
+              height: height * .5,
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -31,14 +28,17 @@ class _MeditateState extends State<Meditate> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(30.0, 450.0, 30.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(30.0, 500.0, 30.0, 0.0),
             child: Text(
               'In mindfulness meditation, you broaden your conscious awareness. You focus on what you experience during meditation, such as the flow of your breath. You can observe your thoughts and emotions, but let them pass without judgment.',
-              style: Textstyle,
+              style: TextStyle(
+                  fontFamily: "FiraSans",
+                  fontSize: 18.0,
+                  color: Colors.grey[700]),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(150.0, 610.0, 50.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(150.0, 650.0, 50.0, 0.0),
             child: RaisedButton(
               onPressed: () {
                 Navigator.of(context).pop();

@@ -60,18 +60,15 @@ class _DoctorState extends State<Doctor> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
-        title: Padding(
-          padding: const EdgeInsets.only(right: 15.0),
-          child: Center(
-              child: Text(
-            'MAKE AN APPOINMENT',
-            style: TextStyle(
-                color: Color.fromRGBO(252, 195, 163, 1),
-                letterSpacing: 2,
-                fontSize: 22,
-                fontWeight: FontWeight.w900),
-          )),
-        ),
+        title: Center(
+            child: Text(
+          'MAKE AN APPOINMENT',
+          style: TextStyle(
+              color: Color.fromRGBO(252, 195, 163, 1),
+              letterSpacing: 2,
+              fontSize: 22,
+              fontWeight: FontWeight.w900),
+        )),
       ),
       body: Container(
         color: Colors.lightBlueAccent.withOpacity(0.5),

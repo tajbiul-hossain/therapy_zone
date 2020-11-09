@@ -2,17 +2,13 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:therapy_zone/pages/home/meditate.dart';
 import 'package:therapy_zone/pages/home/mindshift.dart';
-import 'package:therapy_zone/pages/home/quiz.dart';
 import 'package:therapy_zone/pages/home/talk.dart';
 import 'package:therapy_zone/pages/bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:therapy_zone/pages/home/breathe.dart';
-import 'package:therapy_zone/pages/home/chart.dart';
-import 'package:therapy_zone/pages/home/doctor.dart';
-import 'package:therapy_zone/pages/home/journal.dart';
-import 'package:therapy_zone/pages/home/learn.dart';
 
 class Home extends StatefulWidget with NavigationStates {
   @override
@@ -63,7 +59,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(30.0, 240.0, 0.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(30.0, 265.0, 0.0, 0.0),
             child: Text(
               "Hey $name, we are glad to have you here...",
               style: cardTextStyle,
@@ -74,15 +70,15 @@ class _HomeState extends State<Home> {
               Expanded(
                 child: GridView.count(
                   mainAxisSpacing: 20,
-                  padding: EdgeInsets.fromLTRB(18.0, 280.0, 18.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(18.0, 290.0, 18.0, 0.0),
                   crossAxisSpacing: 20,
                   primary: false,
                   crossAxisCount: 2,
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Journal()));
+                        BlocProvider.of<NavigationBloc>(context)
+                            .add(NavigationEvents.JournalClickedEvent);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -107,8 +103,8 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Learn()));
+                        BlocProvider.of<NavigationBloc>(context)
+                            .add(NavigationEvents.LearnClickedEvent);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -132,8 +128,8 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Chart()));
+                        BlocProvider.of<NavigationBloc>(context)
+                            .add(NavigationEvents.ChartClickedEvent);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -158,8 +154,8 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Quiz()));
+                        BlocProvider.of<NavigationBloc>(context)
+                            .add(NavigationEvents.QuizClickedEvent);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -184,8 +180,8 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Doctor()));
+                        BlocProvider.of<NavigationBloc>(context)
+                            .add(NavigationEvents.DoctorListClickedEvent);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(

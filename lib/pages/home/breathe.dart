@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:therapy_zone/pages/home/home_page.dart';
 
 class Breathe extends StatefulWidget {
   @override
@@ -10,7 +9,7 @@ class Breathe extends StatefulWidget {
 class _BreatheState extends State<Breathe> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Stack(
@@ -18,7 +17,7 @@ class _BreatheState extends State<Breathe> {
           Padding(
             padding: const EdgeInsets.all(50.0),
             child: Container(
-              height: size.height * .5,
+              height: height * .5,
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -30,7 +29,7 @@ class _BreatheState extends State<Breathe> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 450.0, 10.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(10.0, 500.0, 10.0, 0.0),
             child: Text(
               'Sit or lie down for a moment. Just breathe and focus on your breathing. Let go of every negative thinking,'
               'just for a moment. Feel any better?',
@@ -40,7 +39,7 @@ class _BreatheState extends State<Breathe> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(150.0, 610.0, 50.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(150.0, 650.0, 50.0, 0.0),
             child: RaisedButton(
               onPressed: () {
                 Navigator.of(context).pop();
