@@ -35,18 +35,15 @@ class _DoctorState extends State<Doctor> {
         ),
         body: Container(
           color: Colors.lightBlueAccent.withOpacity(0.5),
-          child: Expanded(
-            child: StreamBuilder(
-                stream: getdocInfoStreamSnapshots(context),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) return Loading();
-                  return new ListView.builder(
-                      itemCount: snapshot.data.documents.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          buildDocCard(
-                              context, snapshot.data.documents[index]));
-                }),
-          ),
+          child: StreamBuilder(
+              stream: getdocInfoStreamSnapshots(context),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Loading();
+                return ListView.builder(
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        buildDocCard(context, snapshot.data.documents[index]));
+              }),
         ),
       ),
     );
