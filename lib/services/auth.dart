@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:therapy_zone/models/post.dart';
-import 'package:therapy_zone/models/tag.dart';
-import 'package:therapy_zone/models/user.dart';
-import 'package:flutter/material.dart';
+import 'package:Unwind/models/post.dart';
+import 'package:Unwind/models/tag.dart';
+import 'package:Unwind/models/user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -12,7 +12,9 @@ class AuthService {
 
   //create user object based on firebase user
   User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null
+        ? User(uid: user.uid, isEmailverified: user.isEmailVerified)
+        : null;
   }
 
   // GET UID
@@ -31,7 +33,13 @@ class AuthService {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      final verifiedEmail = user.isEmailVerified;
+      if (verifiedEmail) {
+        print('verifiedEmail ifblock');
+        return _userFromFirebaseUser(user);
+      } else {
+        return "Please verify your email first";
+      }
     } catch (e) {
       return e.message;
     }
@@ -40,17 +48,19 @@ class AuthService {
   //register with email & pass
   Future registerWithEmailAndPassword(
       String email, String password, String name) async {
+    AuthResult result = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    FirebaseUser user = result.user;
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      FirebaseUser user = result.user;
+      await user.sendEmailVerification();
       UserUpdateInfo updateUser = UserUpdateInfo();
       updateUser.displayName = name;
       await user.updateProfile(updateUser);
       user.reload();
       await createUserTagInfo("", user.uid, 0, 0, 0, 0, 0, 0);
-
-      return _userFromFirebaseUser(user);
+      //_userFromFirebaseUser(user)
+      return "A verification link has been sent to $email. Login after verifying your email.";
+      //return user.uid;
     } catch (e) {
       return e.message;
     }
@@ -145,5 +155,12 @@ class AuthService {
 
   Stream<List<Tag>> get tags {
     return tagCollection.snapshots().map(_tagListFromSnapshot);
+  }
+
+  //RESETING PASSWORD
+  Future<void> resetPassword(String email) async {
+    //final email = (await _auth.currentUser()).email;
+    print(email);
+    await _auth.sendPasswordResetEmail(email: email);
   }
 }

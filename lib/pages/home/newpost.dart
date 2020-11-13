@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:therapy_zone/services/auth.dart';
+import 'package:Unwind/services/auth.dart';
 
 class NewPost extends StatefulWidget {
   @override

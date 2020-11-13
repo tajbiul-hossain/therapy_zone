@@ -11,44 +11,43 @@ class _MeditateState extends State<Meditate> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Container(
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
               height: height * .5,
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/unwind_meditation.gif'),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30.0, 500.0, 30.0, 0.0),
-            child: Text(
-              'In mindfulness meditation, you broaden your conscious awareness. You focus on what you experience during meditation, such as the flow of your breath. You can observe your thoughts and emotions, but let them pass without judgment.',
-              style: TextStyle(
-                  fontFamily: "FiraSans",
-                  fontSize: 18.0,
-                  color: Colors.grey[700]),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+              child: Text(
+                'In mindfulness meditation, you broaden your conscious awareness. You focus on what you experience during meditation, such as the flow of your breath. You can observe your thoughts and emotions, but let them pass without judgment.',
+                style: TextStyle(
+                    fontFamily: "FiraSans",
+                    fontSize: 18.0,
+                    color: Colors.grey[700]),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(150.0, 650.0, 50.0, 0.0),
-            child: RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Done'),
-              color: Colors.cyan,
-              elevation: 8.0,
+            Container(
+              padding: EdgeInsets.only(top: height * .13),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Done'),
+                color: Colors.cyan,
+                elevation: 8.0,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

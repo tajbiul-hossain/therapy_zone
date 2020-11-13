@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:therapy_zone/pages/authenticate/login.dart';
-import 'package:therapy_zone/pages/authenticate/register.dart';
+import 'package:Unwind/pages/authenticate/login.dart';
+import 'package:Unwind/pages/authenticate/register.dart';
 
 class Authenticate extends StatefulWidget {
   @override

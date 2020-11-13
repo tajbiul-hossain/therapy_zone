@@ -1,9 +1,11 @@
+import 'package:Unwind/shared/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:therapy_zone/services/auth.dart';
-import '../bloc.navigation_bloc/navigation_bloc.dart';
-import 'package:therapy_zone/pages/home/newpost.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Unwind/services/auth.dart';
+import 'package:Unwind/pages/bloc.navigation_bloc/navigate_back.dart';
+import 'package:Unwind/pages/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:Unwind/pages/home/newpost.dart';
 
 class Journal extends StatefulWidget with NavigationStates {
   @override
@@ -12,14 +14,17 @@ class Journal extends StatefulWidget with NavigationStates {
 
 class _JournalState extends State<Journal> {
   final AuthService _auth = AuthService();
-
-  Map data = {};
+  Back back = Back();
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var cardTextStyle = TextStyle(
-        fontFamily: "SpaceGrotesk", fontSize: 18, color: Colors.white);
+        fontFamily: "SpaceGrotesk",
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        color: Colors.white);
+
     void _showPostPanel() {
       showModalBottomSheet(
           context: context,
@@ -32,63 +37,72 @@ class _JournalState extends State<Journal> {
           });
     }
 
-    return Scaffold(
-      backgroundColor: Colors.lightBlueAccent.withOpacity(0.9),
-      appBar: AppBar(
-          backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
-          title: Center(
-            child: Text(
-              'JOURNAL',
-              style: TextStyle(
-                  color: Color.fromRGBO(252, 195, 163, 1),
-                  letterSpacing: 2,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w900),
-            ),
-          )),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            height: size.height * .3,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                alignment: Alignment.bottomCenter,
-                image: AssetImage('assets/whimsical.jpg'),
-                fit: BoxFit.cover,
+    return WillPopScope(
+      onWillPop: () {
+        back.moveToHomeScreen(context);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.lightBlueAccent.withOpacity(0.9),
+        appBar: AppBar(
+            backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
+            title: Center(
+              child: Text(
+                'JOURNAL',
+                style: TextStyle(
+                    color: Color.fromRGBO(252, 195, 163, 1),
+                    letterSpacing: 2,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900),
+              ),
+            )),
+        body: Column(
+          children: [
+            Container(
+                height: size.height * .4,
+                width: size.width,
+                padding: EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    alignment: Alignment.bottomCenter,
+                    image: AssetImage('assets/whimsical.jpg'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      '“Journaling is like whispering to one’s self and listening at the same time.” _Mina Murray',
+                      textAlign: TextAlign.center,
+                      style: cardTextStyle,
+                    ),
+                  ),
+                )),
+            Container(
+              child: Expanded(
+                child: StreamBuilder(
+                    stream: getUsersPostsStreamSnapshots(context),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return Loading();
+                      return new ListView.builder(
+                          itemCount: snapshot.data.documents.length,
+                          itemBuilder: (BuildContext context, int index) =>
+                              buildPostCard(
+                                  context, snapshot.data.documents[index]));
+                    }),
               ),
             ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.purple[600],
+          onPressed: () => _showPostPanel(),
+          child: Icon(
+            Icons.create_outlined,
+            color: Colors.blue,
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 205.0, 0.0, 0.0),
-            child: Text(
-                '“Journaling is like whispering to one’s self and listening at the same time.” _Mina Murray',
-                textAlign: TextAlign.center,
-                style: cardTextStyle),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 230.0, 0.0, 0.0),
-            child: Container(
-              child: StreamBuilder(
-                  stream: getUsersPostsStreamSnapshots(context),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) return const Text("Loading...");
-                    return new ListView.builder(
-                        itemCount: snapshot.data.documents.length,
-                        itemBuilder: (BuildContext context, int index) =>
-                            buildPostCard(
-                                context, snapshot.data.documents[index]));
-                  }),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple[600],
-        onPressed: () => _showPostPanel(),
-        child: Icon(
-          Icons.create_outlined,
-          color: Colors.blue,
         ),
       ),
     );
@@ -101,6 +115,7 @@ class _JournalState extends State<Journal> {
         .collection('userData')
         .document(uid)
         .collection('posts')
+        .orderBy("date", descending: true)
         .snapshots();
   }
 

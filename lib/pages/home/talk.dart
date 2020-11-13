@@ -12,24 +12,21 @@ class _TalkState extends State<Talk> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Container(
-              height: height * .5,
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/talktofriend.gif'),
-                  fit: BoxFit.cover,
-                ),
+          Container(
+            height: height * .63,
+            width: double.infinity,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/talktofriend.gif'),
+                fit: BoxFit.fill,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30.0, 500.0, 30.0, 0.0),
+          Container(
+            padding: const EdgeInsets.fromLTRB(22.0, 20.0, 22.0, 0.0),
             child: Text(
               'Talking to a close friend or family always helps. They can help you to throw away the unnecessary burden you are carrying for a long time. If '
               'you can\'t find anyone to talk to, see a therapist.',
@@ -39,8 +36,8 @@ class _TalkState extends State<Talk> {
                   color: Colors.grey[700]),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(150.0, 650.0, 50.0, 0.0),
+          Container(
+            padding: EdgeInsets.only(top: height * .10),
             child: RaisedButton(
               onPressed: () {
                 Navigator.of(context).pop();

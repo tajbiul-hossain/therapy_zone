@@ -9,38 +9,34 @@ class MindShift extends StatefulWidget {
 class _MindShiftState extends State<MindShift> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Container(
-              height: height * .5,
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/mindshift.gif'),
-                  fit: BoxFit.cover,
-                ),
+          Container(
+            height: size.height * .63,
+            width: size.width,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/mindshift.gif'),
+                fit: BoxFit.fill,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 500.0, 20.0, 0.0),
+          Container(
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: Text(
-              'Sit down and relax. Give all of your thoughts a temporary pause. Think about a happy thought, watch'
-              'watch your favourite funny movie or go out and look at nature. For a minute, think about something happy.',
+              'Sit down and relax. Give all of your thoughts a temporary pause. Think about a happy thought, watch your favourite funny movie or go out and look at nature. For a minute, think about something happy.',
               style: TextStyle(
                   fontFamily: "FiraSans",
                   fontSize: 18.0,
                   color: Colors.grey[700]),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(150.0, 650.0, 50.0, 0.0),
+          Container(
+            padding: EdgeInsets.only(top: size.height * .10),
             child: RaisedButton(
               onPressed: () {
                 Navigator.of(context).pop();

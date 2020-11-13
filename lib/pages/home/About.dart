@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:therapy_zone/pages/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:Unwind/pages/bloc.navigation_bloc/navigate_back.dart';
+import 'package:Unwind/pages/bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget with NavigationStates {
@@ -8,6 +9,8 @@ class About extends StatefulWidget with NavigationStates {
 }
 
 class _AboutState extends State<About> {
+  Back back = Back();
+
   var name = [
     "Manzur Kabir Ayon",
     "Ishmamur Rahman",
@@ -36,76 +39,91 @@ class _AboutState extends State<About> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width * 0.6;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
-        title: Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: Center(
-              child: Text(
-            'OUR TEAM',
-            style: TextStyle(
-                color: Color.fromRGBO(252, 195, 163, 1),
-                letterSpacing: 2,
-                fontSize: 22,
-                fontWeight: FontWeight.w900),
-          )),
+    double width = MediaQuery.of(context).size.width * 0.7;
+    return WillPopScope(
+      onWillPop: () {
+        back.moveToHomeScreen(context);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
+          title: Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: Center(
+                child: Text(
+              'OUR TEAM',
+              style: TextStyle(
+                  color: Color.fromRGBO(252, 195, 163, 1),
+                  letterSpacing: 2,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900),
+            )),
+          ),
         ),
-      ),
-      body: Container(
-        color: Colors.lightBlueAccent.withOpacity(0.3),
-        child: ListView.builder(
-            itemCount: name.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  showDialogFunc(context, img[index], name[index], id[index],
-                      mobile[index], email[index]);
-                },
-                child: Card(
-                    color: Color.fromRGBO(47, 94, 161, 0.5),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0, top: 20.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 80,
-                            height: 80,
-                            child: Image.asset(img[index]),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(25.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  name[index],
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 10.0),
-                                Container(
-                                  width: width,
-                                  child: Text(
-                                    id[index],
+        body: Container(
+          color: Colors.lightBlueAccent.withOpacity(0.3),
+          child: ListView.builder(
+              itemCount: name.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    showDialogFunc(context, img[index], name[index],
+                        mobile[index], email[index]);
+                  },
+                  child: Card(
+                      color: Color.fromRGBO(47, 94, 161, 0.8),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              child: Image.asset(img[index]),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(25, 25, 0, 25),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    name[index],
                                     style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.grey[300],
+                                      fontSize: 22.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    )),
-              );
-            }),
+                                  SizedBox(height: 10.0),
+                                  Container(
+                                    width: width,
+                                    child: Text(
+                                      id[index],
+                                      style: TextStyle(
+                                        fontSize: 17.0,
+                                        color: Colors.grey[200],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: width,
+                                    child: Text(
+                                      email[index],
+                                      style: TextStyle(
+                                        fontSize: 17.0,
+                                        color: Colors.grey[200],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
+                );
+              }),
+        ),
       ),
     );
   }
@@ -119,7 +137,7 @@ void customLaunch(command) async {
   }
 }
 
-showDialogFunc(context, img, name, id, mobile, email) {
+showDialogFunc(context, img, name, mobile, email) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -129,7 +147,7 @@ showDialogFunc(context, img, name, id, mobile, email) {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromRGBO(47, 94, 161, 0.8),
+                color: Color.fromRGBO(47, 94, 161, 0.9),
               ),
               padding: EdgeInsets.all(15.0),
               width: MediaQuery.of(context).size.width * 0.7,
@@ -146,7 +164,7 @@ showDialogFunc(context, img, name, id, mobile, email) {
                     name,
                     style: TextStyle(
                         fontSize: 25.0,
-                        color: Colors.white60,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 20.0),

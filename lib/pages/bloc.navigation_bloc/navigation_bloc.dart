@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:therapy_zone/pages/home/About.dart';
-import 'package:therapy_zone/pages/home/home_page.dart';
-import '../home/journal.dart';
-import '../home/learn.dart';
-import '../home/quiz.dart';
-import '../home/chart.dart';
-import '../home/doctor.dart';
+import 'package:Unwind/pages/home/About.dart';
+import 'package:Unwind/pages/home/home_page.dart';
+import 'package:Unwind/pages/home/journal.dart';
+import 'package:Unwind/pages/home/learn.dart';
+import 'package:Unwind/pages/home/quiz.dart';
+import 'package:Unwind/pages/home/chart.dart';
+import 'package:Unwind/pages/home/doctor.dart';
 
 enum NavigationEvents {
   HomeClickedEvent,

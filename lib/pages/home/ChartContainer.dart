@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
-import 'package:therapy_zone/models/tag.dart';
-import 'package:therapy_zone/models/user.dart';
+import 'package:Unwind/models/tag.dart';
+import 'package:Unwind/models/user.dart';
 
 class ChartContainer extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class _ChartContainerState extends State<ChartContainer> {
       }
     });
     return Container(
-      color: Colors.lightBlueAccent.withOpacity(0.4),
+      color: Colors.deepPurple[900],
       child: PieChart(
         dataMap: {
           "\u{1F616}": _tag1.toDouble(),
@@ -48,14 +48,14 @@ class _ChartContainerState extends State<ChartContainer> {
           "\u{1F600}": _tag5.toDouble(),
           "\u{1F604}": _tag6.toDouble()
         },
-        chartRadius: 400,
+        chartRadius: 350,
         chartValuesOptions: ChartValuesOptions(
           showChartValueBackground: false,
           showChartValuesInPercentage: true,
         ),
         legendOptions: LegendOptions(
             legendPosition: LegendPosition.top,
-            legendTextStyle: TextStyle(fontSize: 20)),
+            legendTextStyle: TextStyle(fontSize: 25)),
       ),
     );
   }

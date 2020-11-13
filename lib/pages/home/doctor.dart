@@ -1,6 +1,10 @@
+import 'package:Unwind/shared/loading.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:therapy_zone/pages/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:tag_highlighting/tag_highlighting.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:Unwind/pages/bloc.navigation_bloc/navigate_back.dart';
+import 'package:Unwind/pages/bloc.navigation_bloc/navigation_bloc.dart';
 
 class Doctor extends StatefulWidget with NavigationStates {
   @override
@@ -8,122 +12,110 @@ class Doctor extends StatefulWidget with NavigationStates {
 }
 
 class _DoctorState extends State<Doctor> {
-  var name = [
-    "Dr. Hanif Seddiqui",
-    "Dr. Osiur Rahman",
-    "Dr. Anwarul Azim",
-    "Dr. Fairooz Azim",
-    "Dr. Manzur Kabir",
-    "Dr. Ishmamur Rahman",
-    "Dr. Tajbiul Hossain"
-  ];
-  var info = [
-    "Random Hospital 1",
-    "Random Hospital 2",
-    "Random Hospital 3",
-    "Random Hospital 4",
-    "Random Hospital 5",
-    "Random Hospital 6",
-    "Random Hospital 7"
-  ];
-  var contact = [
-    "01975937956",
-    "01875937956",
-    "01775937956",
-    "01575937956",
-    "01675937956",
-    "01575937956",
-    "01675937956"
-  ];
-  var email = [
-    "hanif@cu.ac.bd",
-    "osi@cu.ac.bd",
-    "azim@cu.ac.bd",
-    "fairoozazim97@gmail.com",
-    "trnwrckd@gmail.com",
-    "ayoncsecu17@gmail.com",
-    "tbh.nishat@gmail.com"
-  ];
-  var img = [
-    "assets/male.png",
-    "assets/male.png",
-    "assets/male.png",
-    "assets/fem.png",
-    "assets/male2.png",
-    "assets/male2.png",
-    "assets/male2.png"
-  ];
+  Back back = Back();
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width * 0.6;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
-        title: Center(
-            child: Text(
-          'MAKE AN APPOINMENT',
-          style: TextStyle(
-              color: Color.fromRGBO(252, 195, 163, 1),
-              letterSpacing: 2,
-              fontSize: 22,
-              fontWeight: FontWeight.w900),
-        )),
+    return WillPopScope(
+      onWillPop: () {
+        back.moveToHomeScreen(context);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
+          title: Center(
+              child: Text(
+            'MAKE AN APPOINMENT',
+            style: TextStyle(
+                color: Color.fromRGBO(252, 195, 163, 1),
+                letterSpacing: 2,
+                fontSize: 22,
+                fontWeight: FontWeight.w900),
+          )),
+        ),
+        body: Container(
+          color: Colors.lightBlueAccent.withOpacity(0.5),
+          child: Expanded(
+            child: StreamBuilder(
+                stream: getdocInfoStreamSnapshots(context),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return Loading();
+                  return new ListView.builder(
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (BuildContext context, int index) =>
+                          buildDocCard(
+                              context, snapshot.data.documents[index]));
+                }),
+          ),
+        ),
       ),
-      body: Container(
-        color: Colors.lightBlueAccent.withOpacity(0.5),
-        child: ListView.builder(
-            itemCount: name.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  showDialogFunc(context, img[index], name[index], info[index],
-                      contact[index], email[index]);
-                },
-                child: Card(
-                    color: Color.fromRGBO(47, 94, 161, 0.7),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 80,
-                            height: 80,
-                            child: Image.asset(img[index]),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(25.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  name[index],
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 10.0),
-                                Container(
-                                  width: width,
-                                  child: Text(
-                                    info[index],
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.grey[300],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+    );
+  }
+
+  Stream<QuerySnapshot> getdocInfoStreamSnapshots(BuildContext context) async* {
+    yield* Firestore.instance.collection('docInfo').snapshots();
+  }
+
+  Widget buildDocCard(BuildContext context, DocumentSnapshot doc) {
+    var width = MediaQuery.of(context).size.width * .7;
+    return GestureDetector(
+      onTap: () {
+        showDialogFunc(context, "${doc['img']}", doc['name'], doc['contact'],
+            doc['email']);
+      },
+      child: Card(
+          color: Color.fromRGBO(47, 94, 161, 0.8),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  child: Image.asset('${doc['img']}'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(25, 25, 0, 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        doc['name'],
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    )),
-              );
-            }),
-      ),
+                      SizedBox(height: 10.0),
+                      Container(
+                        width: width,
+                        child: TagHighlighting(
+                          text:
+                              "<bold>Counsellor at:</bold> ${doc['hospital']}\n\n"
+                              "<bold>Expertise:</bold> ${doc['expertise']}",
+                          defaultTextStyle: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.grey[200],
+                          ),
+                          tags: [
+                            TagHighlight(
+                              tagName: "bold",
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: Colors.grey[100],
+                                fontSize: 17,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )),
     );
   }
 }
@@ -136,7 +128,7 @@ void customLaunch(command) async {
   }
 }
 
-showDialogFunc(context, img, name, info, mobile, email) {
+showDialogFunc(context, img, name, mobile, email) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -146,7 +138,7 @@ showDialogFunc(context, img, name, info, mobile, email) {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromRGBO(47, 94, 161, 0.7),
+                color: Color.fromRGBO(47, 94, 161, 0.9),
               ),
               padding: EdgeInsets.all(15.0),
               width: MediaQuery.of(context).size.width * 0.7,
@@ -156,23 +148,20 @@ showDialogFunc(context, img, name, info, mobile, email) {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: Image.asset(img, width: 150, height: 150),
+                    child: Image.asset(img, width: 130, height: 130),
                   ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    name,
-                    style: TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.white60,
-                        fontWeight: FontWeight.bold),
+                  SizedBox(height: 20.0),
+                  Align(
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                          fontSize: 25.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    info,
-                    style: TextStyle(fontSize: 15.0, color: Colors.white60),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

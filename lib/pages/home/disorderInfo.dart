@@ -1,6 +1,6 @@
-import 'package:therapy_zone/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:Unwind/shared/loading.dart';
 
 class DisorderInfo extends StatefulWidget {
   final String name;
@@ -17,7 +17,7 @@ class _DisorderInfoState extends State<DisorderInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(51, 129, 239,0.8),
+        backgroundColor: Color.fromRGBO(51, 129, 239, 0.8),
         title: Center(
             child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 55, 0),

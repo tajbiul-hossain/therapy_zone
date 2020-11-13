@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:therapy_zone/services/auth.dart';
-import 'package:therapy_zone/pages/bloc.navigation_bloc/navigation_bloc.dart';
-import 'package:therapy_zone/pages/sidebar/menu_item.dart';
+import 'package:Unwind/services/auth.dart';
+import 'package:Unwind/pages/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:Unwind/pages/sidebar/menu_item.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -64,6 +64,7 @@ class _SideBarState extends State<SideBar>
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    var size = MediaQuery.of(context).size;
 
     return StreamBuilder<bool>(
       initialData: false,
@@ -79,7 +80,8 @@ class _SideBarState extends State<SideBar>
             children: <Widget>[
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 20, vertical: size.height * .03),
                   color: const Color.fromRGBO(255, 255, 255, 1),
                   child: Column(
                     children: <Widget>[
@@ -143,7 +145,7 @@ class _SideBarState extends State<SideBar>
                       ),
                       MenuItem(
                         icon: Icons.question_answer,
-                        title: "Quiz",
+                        title: "Take a test",
                         onTap: () {
                           onIconPressed();
                           BlocProvider.of<NavigationBloc>(context)
@@ -152,7 +154,7 @@ class _SideBarState extends State<SideBar>
                       ),
                       MenuItem(
                         icon: Icons.bar_chart,
-                        title: "Chart",
+                        title: "Stats",
                         onTap: () {
                           onIconPressed();
                           BlocProvider.of<NavigationBloc>(context)
@@ -161,7 +163,7 @@ class _SideBarState extends State<SideBar>
                       ),
                       MenuItem(
                         icon: Icons.local_hospital,
-                        title: "Doctor List",
+                        title: "Professional help",
                         onTap: () {
                           onIconPressed();
                           BlocProvider.of<NavigationBloc>(context)
